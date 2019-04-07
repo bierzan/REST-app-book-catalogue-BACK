@@ -1,9 +1,7 @@
 package pl.coderslab.app;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.app.dto.Book;
 
 import java.util.List;
@@ -31,7 +29,7 @@ public class BookController {
                 "Bruce Eckel","Helion","programming");
     }
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public List<Book> getBooks(){
         return memoryBookService.getList();
     }
@@ -41,6 +39,16 @@ public class BookController {
         return memoryBookService.getBookById(id);
     }
 
-    //todo dodawanie ksiazki
+    @PostMapping("/")
+    public void addBook( @RequestBody Book book){
+        memoryBookService.addBook(book);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteBook (@PathVariable("id") long idToDelete){
+        memoryBookService.deleteById(idToDelete);
+
+    }
+
 }
 

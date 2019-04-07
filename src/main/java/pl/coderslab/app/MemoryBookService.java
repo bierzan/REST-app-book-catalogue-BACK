@@ -1,11 +1,11 @@
 package pl.coderslab.app;
 
-import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
 import pl.coderslab.app.dto.Book;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MemoryBookService {
@@ -40,5 +40,17 @@ public class MemoryBookService {
             e.printStackTrace();
         }
         return book;
+    }
+
+    public void addBook(Book book){
+        this.list.add(book);
+    }
+
+    public void deleteById(long id){
+        List<Book> temp = this.list.stream()
+                .filter(x-> x.getId()!=id)
+                .collect(Collectors.toList());
+
+        this.list = temp;
     }
 }
