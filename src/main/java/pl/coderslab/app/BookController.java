@@ -14,7 +14,7 @@ public class BookController {
     MemoryBookService memoryBookService;
 
     @Autowired
-    public BookController(MemoryBookService memoryBookService){
+    public BookController(MemoryBookService memoryBookService) {
         this.memoryBookService = memoryBookService;
     }
 
@@ -24,29 +24,29 @@ public class BookController {
     }
 
     @RequestMapping("/helloBook")
-    public Book helloBook(){
-        return new Book(1L,"9788324631766","Thinking in Java",
-                "Bruce Eckel","Helion","programming");
+    public Book helloBook() {
+        return new Book(1L, "9788324631766", "Thinking in Java",
+                "Bruce Eckel", "Helion", "programming");
     }
 
     @GetMapping("/")
-    public List<Book> getBooks(){
+    public List<Book> getBooks() {
         return memoryBookService.getList();
     }
 
     @RequestMapping("/{id}")
-    public Book getBook(@PathVariable("id") long id){
+    public Book getBook(@PathVariable("id") long id) {
         return memoryBookService.getBookById(id);
     }
 
     @PostMapping("/")
-    public void addBook( @RequestBody Book book){
-        memoryBookService.addBook(book);
+    public Book addBook(@RequestBody Book book) {
+        return memoryBookService.addBook(book);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteBook (@PathVariable("id") long idToDelete){
-        memoryBookService.deleteById(idToDelete);
+    public List<Book> deleteBook(@PathVariable("id") long idToDelete) {
+        return memoryBookService.deleteById(idToDelete);
 
     }
 

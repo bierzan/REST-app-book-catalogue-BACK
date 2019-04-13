@@ -33,24 +33,26 @@ public class MemoryBookService {
         Book book = null;
         try {
             book = this.list.stream()
-                    .filter(x-> x.getId()==id)
+                    .filter(x -> x.getId() == id)
                     .findFirst()
-                    .orElseThrow(()->new Exception("nie ma książki o podanym id"));
+                    .orElseThrow(() -> new Exception("nie ma książki o podanym id"));
         } catch (Exception e) {
             e.printStackTrace();
         }
         return book;
     }
 
-    public void addBook(Book book){
+    public Book addBook(Book book) {
         this.list.add(book);
+        return book;
     }
 
-    public void deleteById(long id){
+    public List<Book> deleteById(long id) {
         List<Book> temp = this.list.stream()
-                .filter(x-> x.getId()!=id)
+                .filter(x -> x.getId() != id)
                 .collect(Collectors.toList());
 
         this.list = temp;
+        return this.list;
     }
 }
